@@ -38,8 +38,7 @@ def arithmetic_class(op, size):
             sol = f * s
         elif op == 3:
             sol = f // s
-        sample = [f, s, sol, 0, 0, 0, 0]
-        sample[3 + op] = 1
+        sample = [f, s, sol, op]
         arr.append(sample)
     return arr
 
@@ -67,6 +66,12 @@ mul_arr = arithmetic_class(2,2000)
 div_arr = arithmetic_class(3,2000)
 combined = plus_arr + minus_arr + mul_arr + div_arr
 random.shuffle(combined)
+combined = np.asarray(combined)
+
+raw_labs = combined[:, -1]
+one_hot_labs = convert_to_one_hot(raw_labs,4)
+combined = combined[:, :-1]
+combined = np.append(combined, one_hot_labs, axis=1)
 
 # bin = simple_binary(10000)
 
